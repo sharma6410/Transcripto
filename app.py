@@ -77,7 +77,7 @@ else:
     # ------------------------------
     # Transcribe Audio using Whisper
     # ------------------------------
-      @st.cache_resource
+    @st.cache_resource
     def load_whisper_model():
         return whisper.load_model("base")
 
@@ -166,4 +166,5 @@ else:
 
     elif page == "Logout":
         show_logout_page()   
+
 
