@@ -1,0 +1,8 @@
+streamlit
+pydub
+yt-dlp
+whisper
+transformers
+torch
+sentencepiece
+nltk
