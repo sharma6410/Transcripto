@@ -2,8 +2,6 @@ import streamlit as st
 import re
 import subprocess
 import shutil
-import os
-import whisper
 import nltk
 
 # Streamlit page config — must be first Streamlit command
@@ -157,6 +155,7 @@ else:
 
     elif page == "Logout":
         show_logout_page()   
+
 
 
 
