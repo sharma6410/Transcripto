@@ -12,7 +12,7 @@ from login import show_login_page
 from home import load_summarizer, summarize_text
 from model_guide import show_model_guide
 from about import show_about
-from classifier import classify_topic
+# from classifier import classify_topic
 from logout import show_logout_page
 from auth import cookies
 from transcriber import transcribe_audio
@@ -111,10 +111,10 @@ else:
                     st.info("📝 Detected raw transcript input.")
                     transcript = user_input
 
-                with st.spinner("🔍 Classifying topic..."):
-                    topic, confidence = classify_topic(transcript)
+                # with st.spinner("🔍 Classifying topic..."):
+                #     topic, confidence = classify_topic(transcript)
 
-                st.markdown(f"🏷️ **Detected Topic:** `{topic}` ({round(confidence * 100, 2)}%)")
+                # st.markdown(f"🏷️ **Detected Topic:** `{topic}` ({round(confidence * 100, 2)}%)")
 
                 st.subheader("📄 Transcript Preview")
                 st.text_area("Transcript", transcript[:3000], height=300)
@@ -155,6 +155,7 @@ else:
 
     elif page == "Logout":
         show_logout_page()   
+
 
 
 
