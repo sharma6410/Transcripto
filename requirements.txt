@@ -7,5 +7,7 @@ torch
 sentencepiece
 nltk
 streamlit-cookies-manager-v2
+git+https://github.com/openai/whisper.git
+
 
 
