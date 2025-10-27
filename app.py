@@ -5,10 +5,11 @@ import shutil
 import os
 import whisper
 import nltk
-nltk.download('punkt', quiet=True)
-nltk.download('stopwords', quiet=True)
 
-# Import modules
+# Streamlit page config — must be first Streamlit command
+st.set_page_config(page_title="Transcripto", layout="centered")
+
+# Other imports (local modules)
 from login import show_login_page
 from home import load_summarizer, summarize_text
 from model_guide import show_model_guide
@@ -17,12 +18,12 @@ from classifier import classify_topic
 from logout import show_logout_page
 from auth import cookies
 
-
-
 # ------------------------------
 # Initial Setup
 # ------------------------------
-st.set_page_config(page_title="Transcripto", layout="centered")
+
+nltk.download('punkt', quiet=True)
+nltk.download('stopwords', quiet=True)
 
 # ------------------------------
 # Auth Gating
@@ -166,5 +167,6 @@ else:
 
     elif page == "Logout":
         show_logout_page()   
+
 
 
