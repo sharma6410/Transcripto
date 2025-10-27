@@ -82,7 +82,7 @@ else:
         st.title("📝 Transcripto: YouTube or Transcript Summarizer")
 
         st.warning(
-                    "⚠️ Note: Your app is running on CPU, so transcription may take longer than usual. "
+                    "⚠️ Note: This app is running on CPU, so transcription may take longer than usual. "
                     "Please be patient while the audio is processed."
                 )
 
@@ -160,6 +160,7 @@ else:
 
     elif page == "Logout":
         show_logout_page()   
+
 
 
 
