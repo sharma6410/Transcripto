@@ -5,6 +5,8 @@ import shutil
 import os
 import whisper
 import nltk
+nltk.download('punkt', quiet=True)
+nltk.download('stopwords', quiet=True)
 
 # Import modules
 from login import show_login_page
@@ -21,10 +23,6 @@ from auth import cookies
 # Initial Setup
 # ------------------------------
 st.set_page_config(page_title="Transcripto", layout="centered")
-
-os.environ["PATH"] += os.pathsep + r"C:\ffmpeg-2025-10-09-git-469aad3897-full_build\ffmpeg-2025-10-09-git-469aad3897-full_build\bin"
-nltk.download('punkt')
-nltk.download('stopwords')
 
 # ------------------------------
 # Auth Gating
@@ -79,10 +77,15 @@ else:
     # ------------------------------
     # Transcribe Audio using Whisper
     # ------------------------------
+      @st.cache_resource
+    def load_whisper_model():
+        return whisper.load_model("base")
+
     def transcribe_audio(audio_path):
-        model = whisper.load_model("base")
+        model = load_whisper_model()
         result = model.transcribe(audio_path)
         return result["text"]
+
 
     # ------------------------------
     # Page Routing
@@ -163,3 +166,4 @@ else:
 
     elif page == "Logout":
         show_logout_page()   
+
