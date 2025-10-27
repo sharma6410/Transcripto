@@ -1,6 +1,7 @@
-[theme]
-primaryColor = "#00E5FF"                # Electric cyan
-backgroundColor = "#121212"             # Deep black
-secondaryBackgroundColor = "#1E1E1E"    # Charcoal grey
-textColor = "#FFFFFF"                   # Crisp white
-font = "monospace"
+# [theme]
+# primaryColor = "#00E5FF"                # Electric cyan
+# backgroundColor = "#121212"             # Deep black
+# secondaryBackgroundColor = "#1E1E1E"    # Charcoal grey
+# textColor = "#FFFFFF"                   # Crisp white
+# font = "monospace"
+
