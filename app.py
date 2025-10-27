@@ -81,6 +81,11 @@ else:
     if page == "Home":
         st.title("📝 Transcripto: YouTube or Transcript Summarizer")
 
+        st.warning(
+                    "⚠️ Note: Your app is running on CPU, so transcription may take longer than usual. "
+                    "Please be patient while the audio is processed."
+                )
+
 
         if "user_input" not in st.session_state:
             st.session_state.user_input = ""
@@ -155,6 +160,7 @@ else:
 
     elif page == "Logout":
         show_logout_page()   
+
 
 
 
