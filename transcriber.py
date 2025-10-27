@@ -9,25 +9,35 @@ from faster_whisper import WhisperModel
 def preprocess_audio(input_path, output_path="audio.wav"):
     """
     Convert audio to 16kHz mono WAV using ffmpeg.
-    Fast Whisper prefers this format for accurate and faster transcription.
     """
     command = [
-        "ffmpeg", "-y",        # Overwrite output if it exists
+        "ffmpeg", "-y",        # Overwrite output if exists
         "-i", input_path,      # Input file
-        "-ar", "16000",        # Set sample rate to 16kHz
-        "-ac", "1",            # Convert to mono
+        "-ar", "16000",        # Sample rate 16kHz
+        "-ac", "1",            # Mono
         output_path
     ]
     subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     return output_path
 
 # ------------------------------
-# Load Whisper Model
+# Lazy Model Loading
 # ------------------------------
-# Load once globally for caching in memory
-# device="cuda" for GPU, "cpu" for CPU
-# compute_type="float16" for faster GPU inference
-model = WhisperModel("base", device="cuda", compute_type="float16")
+_model = None
+
+def get_model():
+    """
+    Load the Whisper model only when first needed.
+    Uses CPU for environments without GPU.
+    """
+    global _model
+    if _model is None:
+        _model = WhisperModel(
+            "base",
+            device="cpu",            # Change to "cuda" if GPU is available
+            compute_type="int8_float16"  # CPU-friendly and memory-efficient
+        )
+    return _model
 
 # ------------------------------
 # Transcription Function
@@ -40,13 +50,14 @@ def transcribe_audio(audio_path):
     # 1. Preprocess audio
     wav_path = preprocess_audio(audio_path)
 
-    # 2. Transcribe
-    segments, info = model.transcribe(wav_path)
+    # 2. Get model (lazy load)
+    model = get_model()
 
-    # 3. Concatenate segments into full transcript
+    # 3. Transcribe audio
+    segments, _ = model.transcribe(wav_path)
     transcript = " ".join([segment.text for segment in segments])
 
-    # 4. Optional: Delete temporary WAV file
+    # 4. Clean up temporary WAV file
     os.remove(wav_path)
 
     return transcript
