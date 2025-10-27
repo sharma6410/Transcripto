@@ -17,6 +17,8 @@ from about import show_about
 from classifier import classify_topic
 from logout import show_logout_page
 from auth import cookies
+from transcriber import transcribe_audio
+
 
 # ------------------------------
 # Initial Setup
@@ -76,19 +78,6 @@ else:
             raise RuntimeError(f"yt-dlp failed: {e}")
 
     # ------------------------------
-    # Transcribe Audio using Whisper
-    # ------------------------------
-    @st.cache_resource
-    def load_whisper_model():
-        return whisper.load_model("base")
-
-    def transcribe_audio(audio_path):
-        model = load_whisper_model()
-        result = model.transcribe(audio_path)
-        return result["text"]
-
-
-    # ------------------------------
     # Page Routing
     # ------------------------------
     if page == "Home":
@@ -119,6 +108,7 @@ else:
 
                     st.info("🧠 Transcribing audio...")
                     transcript = transcribe_audio(audio_path)
+
                 else:
                     st.info("📝 Detected raw transcript input.")
                     transcript = user_input
@@ -167,6 +157,7 @@ else:
 
     elif page == "Logout":
         show_logout_page()   
+
 
 
 
